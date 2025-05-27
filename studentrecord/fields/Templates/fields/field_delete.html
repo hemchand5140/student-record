@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Deletion</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #32325d;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px 45px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .profile-pic-confirm {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid #e6ebf1;
+        }
+        h2 {
+            color: #f5365c; /* Danger color */
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        p {
+            font-size: 17px;
+            margin-bottom: 30px;
+            color: #525f7f;
+            line-height: 1.6;
+        }
+        p strong {
+            font-weight: 600;
+            color: #32325d;
+        }
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px; /* Pill shape */
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        .btn-danger {
+            background-color: #f5365c;
+            color: white;
+            box-shadow: 0 4px 6px rgba(245, 54, 92, 0.2);
+        }
+        .btn-danger:hover {
+            background-color: #ec0c38;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(245, 54, 92, 0.2), 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .btn-secondary {
+            background-color: #f6f9fc;
+            color: #525f7f;
+            border: 1px solid #cad1d7;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        .btn-secondary:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    {% if field.profile_pic %}
+    <img src="{{ field.profile_pic_url }}" alt="Profile picture of {{ field.name }}" class="profile-pic-confirm">
+    {% endif %}
+    <h2>Confirm Deletion</h2>
+    <p>Are you absolutely sure you want to delete the record for <strong>{{ field.name }}</strong>? This action cannot be undone.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="button-group">
+            <button class="btn btn-danger" type="submit">Yes, Delete</button>
+            <a class="btn btn-secondary" href="{% url 'fields:field_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
